@@ -50,15 +50,13 @@
  * 
  */
 use std::cell::RefCell;
-
-#[derive(Copy, Clone)]
-struct Element(i32, i32);
-
+use std::thread::current;
 
 struct MyHashMap {
-    arr: RefCell<Box<[Element; 10000]>>,
+    arr: Vec<SingleList<Element>>,
 }
 
+struct Element(i32, i32);
 
 /** 
  * `&self` means the method takes an immutable reference.
@@ -68,58 +66,163 @@ impl MyHashMap {
 
     /** Initialize your data structure here. */
     fn new() -> Self {
-        Self{arr: RefCell::new(Box::new([Element(-1, -1); 10000]))}
+        let mut array = vec![];
+        for i in 0..1024 {
+            array.push(SingleList::new());
+            //array[i] = SingleList::new();
+        }
+        Self { arr: array }
     }
     
     /** value will always be non-negative. */
-    fn put(&self, key: i32, value: i32) {
-        //self.arr.borrow_mut().insert(key as usize, value);
-        let elem_num = self.arr.borrow().len();
-        for off in 0..elem_num {
-            let index = (key as usize + off) % elem_num;
-            let mut arr = self.arr.borrow_mut();
-            if arr[index].0 == -1 || arr[index].0 == key {
-                arr[index] = Element(key, value);
-                break;
-            }
-        }
+    fn put(&mut self, key: i32, value: i32) {
+        //if sl.iter().find(|x| x.0 == key).is_none() {
+        self.remove(key);
+
+        let sl = self.get_mut_bucket(key);
+        sl.push(Element(key, value));
+        //}
     }
     
     /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
-    fn get(&self, key: i32) -> i32 {
-        if let Some(index) = self._search(key) {
-            return self.arr.borrow()[index].1;
+    fn get(&mut self, key: i32) -> i32 {
+        let sl = self.get_mut_bucket(key);
+        if let Some(t) = sl.iter().find(|x| x.0 == key) {
+            return t.1;
         }
         -1
     }
-
-    fn _search(&self, key:i32) -> Option<usize> {
-        let elem_num = self.arr.borrow().len();
-        let arr = self.arr.borrow();
-        for off in 0..elem_num {
-            let index = (key as usize + off) % elem_num;
-            if arr[index].0 == key {
-                return Some(index);
-            }
-            if arr[index].0 == -1 {
-                break
-            }
-        }
-        None
-    }
     
     /** Removes the mapping of the specified value key if this map contains a mapping for the key */
-    fn remove(&self, key: i32) {
-        if let Some(index) = self._search(key) {
-            self.arr.borrow_mut()[index].0 = -1;
+    fn remove(&mut self, key: i32) {
+        let mut sl = self.get_mut_bucket(key);
+        let mut current = &mut sl.head;
+        loop {
+            match current {
+                None => return,
+                Some(node) if node.value.0 == key => {
+                    *current = node.next.take();
+                    return
+                },
+                Some(node) => {
+                    current = &mut node.next;
+                }
+            }
         }
+    }
+
+    fn get_bucket(&self, key: i32) -> &SingleList<Element> {
+        let pos = key as usize & (self.arr.len()-1);
+        &self.arr[pos]
+    }
+
+    fn get_mut_bucket(&mut self, key: i32) -> &mut SingleList<Element> {
+        let pos = key as usize & (self.arr.len()-1);
+        &mut self.arr[pos]
+    }
+}
+
+struct SingleList<T> {
+    pub head: Link<T>,
+}
+
+type Link<T> = Option<Box<Node<T>>>;
+
+struct Node<T> {
+    pub value: T,
+    pub next: Link<T>
+}
+
+impl<T> Node<T> {
+    fn new(value: T) -> Node<T> {
+        Node{ value, next: None }
     }
 }
 
 
+impl<T> SingleList<T> {
+    fn new() -> Self{
+        SingleList{head: None}
+    }
+
+    fn push(&mut self, value: T) {
+        let mut new_node = Box::new(Node::new(value));
+        new_node.next = self.head.take();
+        self.head = Some(new_node);
+    }
+    fn pop(&mut self) -> Option<T> {
+        if let Some(box_node) = self.head.take() {
+            self.head = box_node.next;
+            return Some(box_node.value);
+        }
+        None
+    }
+    fn peek(&self) -> Option<&T> {
+        self.head.as_ref().map(|x| &x.value)
+    }
+    fn remove(&mut self) {
+        unimplemented!()
+    }
+    fn into_iter(self) -> IntoIter<T> {
+        IntoIter(self)
+    }
+    fn iter(&self) -> Iter<'_, T> {
+        Iter { next: self.head.as_ref().map(|x| &**x) }
+    }
+    fn itermut(&mut self) -> IterMut<'_, T> {
+        IterMut { next: self.head.as_mut().map(|x| &mut **x)}
+    }
+}
+
+impl<T> Drop for SingleList<T> {
+    fn drop(&mut self) {
+        while let Some(current) = self.head.take() {
+            self.head = current.next;
+        }
+    }
+}
+
+struct IntoIter<T>(SingleList<T>);
+
+impl<T> Iterator for IntoIter<T> {
+    type Item = T;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.pop()
+    }
+}
+
+struct Iter<'a, T> {
+    next: Option<&'a Node<T>>
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.next.take().map(|x|{
+            self.next = x.next.as_ref().map(|x| &**x);
+            &x.value
+        })
+    }
+}
+
+struct IterMut<'a, T> {
+    next: Option<&'a mut Node<T>>
+}
+
+impl<'a, T> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.next.take().map(|x| {
+            self.next = x.next.as_mut().map(|node| &mut **node);
+            &mut x.value
+        })
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::MyHashMap;
+    use crate::design_hashmap::SingleList;
 
     #[test]
     fn test1() {
@@ -130,5 +233,71 @@ mod test {
 
         assert_eq!(mhm.get(11), -1);
         assert_eq!(mhm.get(10), -1);
+        mhm.put(10, 30);
+        assert_eq!(mhm.get(10), 30);
+        mhm.put(10, 31);
+        assert_eq!(mhm.get(10), 31);
+        mhm.remove(10);
+        assert_eq!(mhm.get(10), -1);
+    }
+
+    #[test]
+    fn test_myhashmap() {
+        /*
+        ["MyHashMap","remove","get","put","put","put","get","put","put","put","put"]
+[[],[14],[4],[7,3],[11,1],[12,1],[7],[1,19],[0,3],[1,8],[2,6]]
+        */
+        let mut mhm = MyHashMap::new();
+        mhm.remove(14);
+        assert_eq!(mhm.get(4), -1);
+        mhm.put(7, 3);
+        mhm.put(11, 1);
+        mhm.put(12, 1);
+        //assert_eq!(mhm.get(7), 3);
+        assert_eq!(mhm.get(16384), -1);
+    }
+    #[test]
+    fn test_list() {
+        let mut list = SingleList::new();
+        list.push(2);
+        assert_eq!(list.peek(), Some(&2));
+        list.push(3);
+        assert_eq!(list.peek(), Some(&3));
+        list.push(4);
+        assert_eq!(list.peek(), Some(&4));
+        assert_eq!(list.pop(), Some(4));
+        assert_eq!(list.peek(), Some(&3));
+        assert_eq!(list.pop(), Some(3));
+        assert_eq!(list.peek(), Some(&2));
+        assert_eq!(list.pop(), Some(2));
+        assert_eq!(list.peek(), None);
+        assert_eq!(list.pop(), None);
+    }
+
+    #[test]
+    fn test_iter() {
+        let mut list = SingleList::new();
+        list.push(2);
+        list.push(3);
+        list.push(4);
+        list.push(5);
+        let mut iter = list.iter();
+        assert_eq!(iter.next(), Some(&5));
+        assert_eq!(iter.next(), Some(&4));
+        assert_eq!(iter.next(), Some(&3));
+        assert_eq!(iter.next(), Some(&2));
+    }
+    #[test]
+    fn test_itermut() {
+        let mut list = SingleList::new();
+        list.push(2);
+        list.push(3);
+        list.push(4);
+        list.push(5);
+        let mut itermut = list.itermut();
+        assert_eq!(itermut.next(), Some(&mut 5));
+        assert_eq!(itermut.next(), Some(&mut 4));
+        assert_eq!(itermut.next(), Some(&mut 3));
+        assert_eq!(itermut.next(), Some(&mut 2));
     }
 }
