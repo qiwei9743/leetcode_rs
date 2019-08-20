@@ -17,4 +17,4 @@ pub mod count_primes;
 pub mod counting_bits;
 pub mod design_hashmap;
 pub mod design_hashset;
-//pub mod design_linked_list;
+pub mod design_linked_list;
