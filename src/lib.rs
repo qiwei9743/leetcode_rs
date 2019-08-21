@@ -18,3 +18,4 @@ pub mod counting_bits;
 pub mod design_hashmap;
 pub mod design_hashset;
 pub mod design_linked_list;
+pub mod symmetric_tree;
