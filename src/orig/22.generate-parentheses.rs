@@ -33,7 +33,7 @@ struct Solution;
 impl Solution {
     pub fn generate_parenthesis(n: i32) -> Vec<String> {
         let mut res = vec![];
-        let mut cur = String::new();
+        let cur = String::new();
 
         Self::generate(0, 0, n, &mut String::new(), &mut res);
         res

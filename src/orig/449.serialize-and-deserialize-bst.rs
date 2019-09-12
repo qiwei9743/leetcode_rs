@@ -40,17 +40,17 @@ impl Solution {
     }
     pub fn descrialize(data: String) -> Option<Rc<RefCell<TreeNode>>> {
         let mut item_iter = data.split(",");
-        let mut root = if let Some(root_str) = item_iter.next() {
-            Self::create_treeNode(root_str)
+        let root = if let Some(root_str) = item_iter.next() {
+            Self::create_tree_node(root_str)
         } else {
             return None;
         };
         let mut dq = VecDeque::new();
         dq.push_back(root.clone());
         loop {
-            let mut node = dq.pop_front().unwrap();
+            let node = dq.pop_front().unwrap();
             if let Some(node_str) = item_iter.next() {
-                let mut child = Self::create_treeNode(node_str);
+                let child = Self::create_tree_node(node_str);
                 if let Some(n) = &child {
                     dq.push_back(Some(n.clone()));
                 }
@@ -59,7 +59,7 @@ impl Solution {
                 break
             }
             if let Some(node_str) = item_iter.next() {
-                let mut child = Self::create_treeNode(node_str);
+                let child = Self::create_tree_node(node_str);
                 if let Some(n) = &child {
                     dq.push_back(Some(n.clone()));
                 }
@@ -71,7 +71,7 @@ impl Solution {
 
         root
     }
-    fn create_treeNode(root_str: &str) -> Option<Rc<RefCell<TreeNode>>> {
+    fn create_tree_node(root_str: &str) -> Option<Rc<RefCell<TreeNode>>> {
         root_str.parse::<i32>().ok().map(
             |x| Rc::new(RefCell::new(TreeNode::new(x))))
     }

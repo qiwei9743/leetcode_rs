@@ -48,7 +48,7 @@
  * Output: 701
  * 
  */
-//struct Solution;
+struct Solution;
 
 impl Solution {
     pub fn title_to_number(s: String) -> i32 {

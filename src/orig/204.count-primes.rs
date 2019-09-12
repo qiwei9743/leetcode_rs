@@ -29,14 +29,14 @@ impl Solution {
         if n < 2 {
             return 0;
         }
-        let mut Primes = vec![true; n as usize];
+        let mut primes = vec![true; n as usize];
         let sq = (n as f64).sqrt().floor() as usize;
         for i in 2..=sq {
             for j in (i*i..n as usize).step_by(i) {
-                Primes[j] = false;
+                primes[j] = false;
             }
         }
-        Primes.iter().filter(|x| **x).count() as i32 - 2
+        primes.iter().filter(|x| **x).count() as i32 - 2
     }
 }
 
