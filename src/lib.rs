@@ -31,3 +31,6 @@ pub mod implement_trie_prefix_tree;
 pub mod integer_to_roman;
 pub mod roman_to_integer;
 pub mod isomorphic_strings;
+pub mod excel_sheet_column_number;
+pub mod largest_number;
+pub mod flatten_binary_tree_to_linked_list;

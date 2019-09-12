@@ -67,25 +67,25 @@ impl MyHashSet {
         }
         Self { arr }
     }
-    fn calcIndex(arr_size: usize, key: &i32) -> usize {
+    fn calc_index(arr_size: usize, key: &i32) -> usize {
         *key as usize & (arr_size - 1)
     }
     fn add(&mut self, key: i32) {
-        let index = Self::calcIndex(self.arr.len(), &key);
+        let index = Self::calc_index(self.arr.len(), &key);
         let sl = &mut self.arr[index];
         sl.remove(|x| *x == key);
         sl.append(key);
     }
     
     fn remove(&mut self, key: i32) {
-        let index = Self::calcIndex(self.arr.len(), &key);
-        let mut sl = &mut self.arr[index];
+        let index = Self::calc_index(self.arr.len(), &key);
+        let sl = &mut self.arr[index];
         sl.remove(|x| *x == key );
     }
     
     /** Returns true if this set contains the specified element */
     fn contains(&self, key: i32) -> bool {
-        let index = Self::calcIndex(self.arr.len(), &key);
+        let index = Self::calc_index(self.arr.len(), &key);
         let sl = &self.arr[index];
         sl.iter().find(|x| **x == key).is_some()
     }

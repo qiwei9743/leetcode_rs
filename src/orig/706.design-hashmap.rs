@@ -95,7 +95,7 @@ impl MyHashMap {
     
     /** Removes the mapping of the specified value key if this map contains a mapping for the key */
     fn remove(&mut self, key: i32) {
-        let mut sl = self.get_mut_bucket(key);
+        let sl = self.get_mut_bucket(key);
         let mut current = &mut sl.head;
         loop {
             match current {

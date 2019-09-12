@@ -114,7 +114,7 @@ impl MyLinkedList {
         } else {
             self.locate(index-1)
         };
-        let mut new_node = Rc::new(
+        let new_node = Rc::new(
             RefCell::new(Node{elem: val, prev: Weak::new(), next: None}));
 
         if let Some(rc_prev) = prev {
