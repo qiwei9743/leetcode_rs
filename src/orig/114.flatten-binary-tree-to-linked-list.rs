@@ -64,7 +64,6 @@ use crate::TreeNode;
 
 use std::rc::Rc;
 use std::cell::RefCell;
-use std::borrow::BorrowMut;
 
 #[derive(Clone)]
 enum Rotation {
@@ -86,17 +85,16 @@ impl Solution {
     pub fn flatten(mut root: &mut Option<Rc<RefCell<TreeNode>>>) {
         let mut root = root.clone();
 
-        while let Some(rt) = root {
-            let mut rt_bow = rt.as_ref().borrow_mut();
+        while let Some(ref mut rt) = root.clone() {
+            let mut rt_bow = rt.borrow_mut();
             if let Some(left) = rt_bow.left.take() {
                 let mut right_most = Some(left.clone());
-                while right_most.as_ref().unwrap().as_ref().borrow().right.is_some() {
-                    let cloned = right_most.as_ref().unwrap().as_ref().borrow().right.clone();
-                    right_most = cloned;
+                while let Some(mut right) = right_most.clone().unwrap().borrow_mut().right.clone() {
+                    right_most = Some(right);
                 }
-                right_most.as_ref().unwrap().as_ref().borrow_mut().right = rt_bow.right.take();
+                right_most.as_ref().unwrap().borrow_mut().right = rt_bow.right.take();
                 rt_bow.right = Some(left.clone());
-            };
+            }
             root = rt_bow.right.clone();
         }
 
