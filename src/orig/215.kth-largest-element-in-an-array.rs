@@ -31,7 +31,7 @@
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
  * 
  */
-//struct Solution;
+struct Solution;
 
 impl Solution {
     pub fn find_kth_largest(mut nums: Vec<i32>, k: i32) -> i32 {
