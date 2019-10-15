@@ -39,7 +39,7 @@
  * 
  * 
  */
-
+struct Solution;
 impl Solution {
     pub fn max_profit(prices: Vec<i32>) -> i32 {
         let mut min_until_current = std::i32::MAX;
@@ -62,6 +62,6 @@ mod tests {
 
     #[test]
     fn test_name() {
-        leetcode_test!();
+
     }
 }

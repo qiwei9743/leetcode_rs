@@ -60,6 +60,7 @@ impl Solution {
                 }
             }
         }
-        dp.last().unwrap_or(0).last().unwrap_or(0)
+        //dp.last().unwrap_or(0).last().unwrap_or(0)
+        dp.last().and_then(|x| x.last()).unwrap_or(&0).clone()
     }
 }
