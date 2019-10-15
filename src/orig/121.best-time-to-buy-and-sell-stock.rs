@@ -55,3 +55,13 @@ impl Solution {
         }).max().unwrap_or(0)
     }
 }
+#[cfg(test)]
+mod tests {
+    use crate::leetcode_test;
+    use super::*;
+
+    #[test]
+    fn test_name() {
+        leetcode_test!();
+    }
+}
