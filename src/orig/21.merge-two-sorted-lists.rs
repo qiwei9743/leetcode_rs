@@ -37,126 +37,45 @@
 //     }
 //   }
 // }
-// pub struct Solution;
+
+struct Solution;
+use crate::ListNode;
+
 impl Solution {
-    pub fn merge_two_lists1(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut rl1 = &l1;
-        let mut rl2 = &l2;
-
-        let mut res = Some(Box::new(ListNode::new(0)));
-        let mut refp = &mut res;
-        while rl1.is_some() && rl2.is_some() {
-            refp.as_mut().unwrap().next =
-                if rl1.as_ref().unwrap().val < rl2.as_ref().unwrap().val {
-
-                    let r = Some(rl1.as_ref().unwrap().clone());
-                    rl1 = &rl1.as_ref().unwrap().next;
-                    r
-            } else {
-                    let r = Some(rl2.as_ref().unwrap().clone());
-                    rl2 = &rl2.as_ref().unwrap().next;
-                    r
-            };
-
-            refp = &mut refp.as_mut().unwrap().next;
-            //println!("{:?}", refp.as_ref().unwrap().val);
-            refp.as_mut().unwrap().next = None;
-        }
-
-        while rl1.is_some() {
-            refp.as_mut().unwrap().next = Some(rl1.as_ref().unwrap().clone());
-            refp = &mut refp.as_mut().unwrap().next;
-            rl1 = &rl1.as_ref().unwrap().next;
-        }
-
-        while rl2.is_some() {
-            refp.as_mut().unwrap().next = Some(rl2.as_ref().unwrap().clone());
-            refp = &mut refp.as_mut().unwrap().next;
-            rl2 = &rl2.as_ref().unwrap().next;
-        }
-
-        res.unwrap().next
-    }
-
-    pub fn merge_two_lists2(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut res = Some(Box::new(ListNode{val:0, next:None}));
-        let mut tail = &mut res;
-        let mut iter1 = ListNodeIterator(l1);
-        let mut iter2 = ListNodeIterator(l2);
-        let mut oln1: Option<Box<ListNode>> = None;
-        let mut oln2: Option<Box<ListNode>> = None;
-        loop {
-            if oln1.is_none() {
-                oln1 = iter1.next();
-            }
-            if oln2.is_none() {
-                oln2 = iter2.next();
-            }
-            if oln1.is_some() && oln2.is_some() {
-                if oln1.as_ref().unwrap().val < oln2.as_ref().unwrap().val {
-                    tail.as_mut().unwrap().next = oln1.take();
-                } else {
-                    tail.as_mut().unwrap().next = oln2.take();
-                }
-                tail = &mut tail.as_mut().unwrap().next;
-            } else {
-                break
-            }
-            // if let (Some(ref ln1), Some(ref ln2)) = (oln1, oln2) {
-            //     if ln1.val < ln2.val {
-            //         tail.as_mut().unwrap().next = oln1.take();
-            //     } else {
-            //         tail.as_mut().unwrap().next = oln2.take();
-            //     }
-            // } else {
-            //     break
-            // }
-        }
-
-        while let Some(ln) = oln1 {
-            //println!("{:?}", ln);
-            tail.as_mut().unwrap().next = Some(ln);
-            tail = &mut tail.as_mut().unwrap().next;
-            oln1 = iter1.next();
-        }
-        while let Some(ln) = oln2 {
-            //println!("{:?}", ln);
-            tail.as_mut().unwrap().next = Some(ln);
-            tail = &mut tail.as_mut().unwrap().next;
-            oln2 = iter2.next();
-        }
-
-        res.unwrap().next
-    }
-
     pub fn merge_two_lists(mut l1: Option<Box<ListNode>>, mut l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
-        if let Some(mut n1) = l1 {
-            if let Some(mut n2) = l2 {
-                if n1.val < n2.val {
-                    n1.next = Solution::merge_two_lists(n1.next, Some(n2));
-                    return Some(n1)
-                } else {
-                    n2.next = Solution::merge_two_lists(Some(n1), n2.next);
-                    return Some(n2)
+//        let mut head = Some(Box::new(ListNode::new(-1)));
+//        let mut tail = &mut head;
+        let mut head = Box::new(ListNode::new(-1));
+        let mut tail = &mut head;
+        loop {
+            match (l1, l2) {
+                (Some(mut n1), Some(mut n2)) => {
+                    tail.next = if n1.val < n2.val {
+                        l1 = n1.next.take();
+                        l2 = Some(n2);
+                        Some(n1)
+                    } else {
+                        l1 = Some(n1);
+                        l2 = n2.next.take();
+                        Some(n2)
+                    };
+                    tail = tail.next.as_mut().unwrap();
+                },
+                (Some(mut n1), None) => {
+                    l1 = n1.next.take();
+                    l2 = None;
+                    tail.next = Some(n1);
+                    tail = tail.next.as_mut().unwrap();
                 }
+                (None, Some(mut n2)) => {
+                    l1 = None;
+                    l2 = n2.next.take();
+                    tail.next = Some(n2);
+                    tail = tail.next.as_mut().unwrap();
+                },
+                (None, None) => break,
             }
-            Some(n1)
-        } else {
-            l2
         }
+        head.next
     }
 }
-
-impl Iterator for ListNodeIterator {
-    type Item = Box<ListNode>;
-    fn next(&mut self) -> Option<Self::Item> {
-        if let Some(mut ret) = self.0.take() {
-            self.0 = ret.next.take();
-            return Some(ret);
-        }
-        None
-    }
-}
-
-struct ListNodeIterator(Option<Box<ListNode>>);
