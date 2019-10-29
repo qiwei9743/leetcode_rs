@@ -54,8 +54,16 @@ use std::rc::Rc;
 use std::cell::RefCell;
 use crate::TreeNode;
 struct Solution;
+
 impl Solution {
     pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        0
+        match root {
+            Some(root) => {
+                1 + std::cmp::max(Self::max_depth(root.borrow().left.clone()),
+                                  Self::max_depth(
+                                      root.borrow().right.clone()))
+            },
+            None => 0,
+        }
     }
 }

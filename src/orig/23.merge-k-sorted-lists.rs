@@ -62,7 +62,7 @@ impl PartialOrd for OrdNode {
 
 impl Ord for OrdNode {
     fn cmp(&self, other: &OrdNode) -> std::cmp::Ordering {
-        !self.0.val.cmp(&other.0.val).re
+        self.0.val.cmp(&other.0.val).reverse()
     }
 }
 
