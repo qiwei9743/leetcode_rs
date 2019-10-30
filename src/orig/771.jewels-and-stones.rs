@@ -43,7 +43,7 @@
  * 
  */
 
-//struct Solution;
+struct Solution;
 impl Solution {
     pub fn num_jewels_in_stones(j: String, s: String) -> i32 {
         let jset = j.chars().collect::<std::collections::HashSet<_>>();
