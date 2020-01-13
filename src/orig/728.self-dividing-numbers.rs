@@ -35,8 +35,11 @@ n * Testcase Example:  '1\n22'
  * The boundaries of each input argument are 1 .
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn self_dividing_numbers(left: i32, right: i32) -> Vec<i32> {
         (left..=right).filter(|&n| {
             let mut nn = n;

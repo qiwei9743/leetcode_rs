@@ -53,8 +53,11 @@
  * Explanation: In this case, no transaction is done, i.e. max profit = 0.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn max_profit(mut prices: Vec<i32>) -> i32 {
         let mut res = 0;
         let mut prev_min = None;

@@ -53,8 +53,11 @@
 //   }
 // }
 use crate::ListNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn rotate_right(mut head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
         if head.is_none() {
             return head;
@@ -79,7 +82,8 @@ impl Solution {
         while ref_new.is_some() && ref_new.as_ref().unwrap().next.is_some() {
             ref_new = &mut ref_new.as_mut().unwrap().next;
         }
-        ref_new.as_mut().map(|x| x.next = head);
+        //ref_new.as_mut().map(|x| x.next = head);
+        if let Some(x) = ref_new.as_mut() { x.next = head }
 
         new_head
     }

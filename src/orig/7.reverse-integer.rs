@@ -41,9 +41,12 @@
  * integer overflows.
  * 
  */
+#[cfg(feature = "local")]
+#[allow(dead_code)]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn reverse(mut x: i32) -> i32 {
         let sig = if x >= 0 { 1 } else { -1 };
         x = x.abs();

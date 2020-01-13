@@ -46,8 +46,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
         let (mut low, mut high) = (0, nums.len());
         while low < high {

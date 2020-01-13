@@ -40,9 +40,12 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn reverse_string(s: &mut Vec<char>) {
         for i in 0..s.len() / 2 {
             let back = s.len() - i - 1;

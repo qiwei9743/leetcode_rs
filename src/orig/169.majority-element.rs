@@ -31,10 +31,13 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 use std::collections::HashMap;
 impl Solution {
+    #[allow(dead_code)]
     pub fn majority_element2(nums: Vec<i32>) -> i32 {
         let mut counter = HashMap::new();
         for n in nums.iter() {
@@ -43,6 +46,7 @@ impl Solution {
         }
         **counter.iter().map(|(k, v)| (v, k)).max().unwrap().1
     }
+    #[allow(dead_code)]
     pub fn majority_element(nums: Vec<i32>) -> i32 {
         let mut cnt = 0;
         let mut np = -1;
@@ -50,12 +54,10 @@ impl Solution {
             if cnt == 0 {
                 cnt = 1;
                 np = *i;
+            } else if *i == np {
+                cnt += 1
             } else {
-                if *i == np {
-                    cnt += 1
-                } else {
-                    cnt -= 1;
-                }
+                cnt -= 1;
             }
         }
         np

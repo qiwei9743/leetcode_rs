@@ -33,7 +33,11 @@
  * Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
  * 
  */
+#[cfg(feature = "local")]
+#[allow(dead_code)]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
         let (mut low, mut high) = (0, numbers.len()-1);
         loop {

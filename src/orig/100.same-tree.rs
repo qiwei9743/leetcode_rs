@@ -74,7 +74,14 @@
 // }
 use std::rc::Rc;
 use std::cell::RefCell;
+
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
+
+use crate::TreeNode;
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_same_tree(mut p: Option<Rc<RefCell<TreeNode>>>, mut q: Option<Rc<RefCell<TreeNode>>>) -> bool {
         p.is_none() && q.is_none() ||
             p.is_some() && q.is_some() && p.as_ref().unwrap().borrow().val == q.as_ref().unwrap().borrow().val &&

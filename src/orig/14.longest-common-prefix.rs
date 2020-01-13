@@ -36,10 +36,13 @@
  * All given inputs are in lowercase letters a-z.
  *
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn longest_common_prefix(strs: Vec<String>) -> String {
-        if strs.len() == 0 {
+        if strs.is_empty() {
             return String::new();
         }
         if strs.len() == 1 {

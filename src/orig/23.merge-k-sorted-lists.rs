@@ -44,9 +44,8 @@
 //   }
 // }
 
-
-
-
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 use crate::ListNode;
 
@@ -67,6 +66,7 @@ impl Ord for OrdNode {
 }
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
         let mut heap = lists.into_iter()
             .filter_map(|x| x.map(|x| OrdNode(*x)))

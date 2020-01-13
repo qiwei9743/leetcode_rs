@@ -22,6 +22,8 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
@@ -30,7 +32,7 @@ impl Solution {
             return 0;
         }
         let mut primes = vec![true; n as usize];
-        let sq = (n as f64).sqrt().floor() as usize;
+        let sq = f64::from(n).sqrt().floor() as usize;
         for i in 2..=sq {
             for j in (i*i..n as usize).step_by(i) {
                 primes[j] = false;

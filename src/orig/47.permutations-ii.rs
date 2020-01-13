@@ -28,10 +28,13 @@
  * 
  */
 
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
         std::iter::successors(Some(nums.clone()), |n| {
             let mut cur = n.clone();
@@ -44,6 +47,7 @@ impl Solution {
         }).collect()
     }
 
+    #[allow(dead_code)]
     pub fn permute_unique_old(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut res = vec![nums];
         loop {

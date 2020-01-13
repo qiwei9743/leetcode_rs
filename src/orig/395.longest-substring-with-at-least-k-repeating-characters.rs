@@ -42,12 +42,16 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn longest_substring(s: String, k: i32) -> i32 {
         Self::longest(&s[..], k)
     }
+
     fn longest(s: &str, k: i32) -> i32 {
         use std::collections::HashMap;
         use std::collections::HashSet;
@@ -57,8 +61,8 @@ impl Solution {
         }
         let mut spliter_set = hcntr
             .iter()
-            .filter(|(c, cnt)| **cnt < k)
-            .map(|(c, cnt)| c).collect::<HashSet<_>>();
+            .filter(|(_, cnt)| **cnt < k)
+            .map(|(c, _)| c).collect::<HashSet<_>>();
 
         if spliter_set.is_empty() {
             return s.len() as i32;

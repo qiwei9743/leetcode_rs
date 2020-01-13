@@ -43,8 +43,11 @@
  * 
  */
 
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn num_jewels_in_stones(j: String, s: String) -> i32 {
         let jset = j.chars().collect::<std::collections::HashSet<_>>();
         s.chars().filter(|x| jset.contains(x)).count() as i32

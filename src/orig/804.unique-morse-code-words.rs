@@ -52,7 +52,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn unique_morse_representations(words: Vec<String>) -> i32 {
         let dd = vec![".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."];
         words.into_iter().map(|word| {

@@ -49,8 +49,6 @@
  * 
  * 
  */
-use std::cell::RefCell;
-use std::thread::current;
 
 struct MyHashMap {
     arr: Vec<SingleList<Element>>,
@@ -65,9 +63,10 @@ struct Element(i32, i32);
 impl MyHashMap {
 
     /** Initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         let mut array = vec![];
-        for i in 0..1024 {
+        for _ in 0..1024 {
             array.push(SingleList::new());
             //array[i] = SingleList::new();
         }
@@ -75,6 +74,7 @@ impl MyHashMap {
     }
     
     /** value will always be non-negative. */
+    #[allow(dead_code)]
     fn put(&mut self, key: i32, value: i32) {
         //if sl.iter().find(|x| x.0 == key).is_none() {
         self.remove(key);
@@ -85,6 +85,7 @@ impl MyHashMap {
     }
     
     /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    #[allow(dead_code)]
     fn get(&mut self, key: i32) -> i32 {
         let sl = self.get_mut_bucket(key);
         if let Some(t) = sl.iter().find(|x| x.0 == key) {
@@ -94,6 +95,7 @@ impl MyHashMap {
     }
     
     /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    #[allow(dead_code)]
     fn remove(&mut self, key: i32) {
         let sl = self.get_mut_bucket(key);
         let mut current = &mut sl.head;
@@ -110,12 +112,13 @@ impl MyHashMap {
             }
         }
     }
-
+    #[allow(dead_code)]
     fn get_bucket(&self, key: i32) -> &SingleList<Element> {
         let pos = key as usize & (self.arr.len()-1);
         &self.arr[pos]
     }
 
+    #[allow(dead_code)]
     fn get_mut_bucket(&mut self, key: i32) -> &mut SingleList<Element> {
         let pos = key as usize & (self.arr.len()-1);
         &mut self.arr[pos]
@@ -141,15 +144,17 @@ impl<T> Node<T> {
 
 
 impl<T> SingleList<T> {
+    #[allow(dead_code)]
     fn new() -> Self{
         SingleList{head: None}
     }
-
+    #[allow(dead_code)]
     fn push(&mut self, value: T) {
         let mut new_node = Box::new(Node::new(value));
         new_node.next = self.head.take();
         self.head = Some(new_node);
     }
+    #[allow(dead_code)]
     fn pop(&mut self) -> Option<T> {
         if let Some(box_node) = self.head.take() {
             self.head = box_node.next;
@@ -157,18 +162,23 @@ impl<T> SingleList<T> {
         }
         None
     }
+    #[allow(dead_code)]
     fn peek(&self) -> Option<&T> {
         self.head.as_ref().map(|x| &x.value)
     }
+    #[allow(dead_code)]
     fn remove(&mut self) {
         unimplemented!()
     }
+    #[allow(dead_code)]
     fn into_iter(self) -> IntoIter<T> {
         IntoIter(self)
     }
+    #[allow(dead_code)]
     fn iter(&self) -> Iter<'_, T> {
         Iter { next: self.head.as_ref().map(|x| &**x) }
     }
+    #[allow(dead_code)]
     fn itermut(&mut self) -> IterMut<'_, T> {
         IterMut { next: self.head.as_mut().map(|x| &mut **x)}
     }

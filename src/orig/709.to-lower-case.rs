@@ -43,7 +43,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn to_lower_case(str: String) -> String {
         //str.to_lowercase()
         str.chars().map(|c| c.to_lowercase().next().unwrap()).collect()

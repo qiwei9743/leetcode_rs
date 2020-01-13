@@ -58,6 +58,8 @@
 //     }
 //   }
 // }
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 use crate::TreeNode;
 
@@ -65,6 +67,7 @@ use crate::TreeNode;
 use std::rc::Rc;
 use std::cell::RefCell;
 
+#[allow(dead_code)]
 #[derive(Clone)]
 enum Rotation {
     LEFT,
@@ -73,6 +76,7 @@ enum Rotation {
 
 
 impl Rotation {
+    #[allow(dead_code)]
     fn opposite(&self) -> Self {
         match self {
             Rotation::LEFT => Rotation::RIGHT,
@@ -82,7 +86,42 @@ impl Rotation {
 }
 
 impl Solution {
-    pub fn flatten(mut root: &mut Option<Rc<RefCell<TreeNode>>>) {
+    #[allow(dead_code)]
+    pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
+        let mut root = root.clone();
+        while root.is_some() {
+            let mut lright_most = root.as_ref().unwrap().borrow_mut().left.take();
+            if lright_most.is_some() {
+                let right = root.as_ref().unwrap().borrow_mut().right.take();
+                root.as_ref().unwrap().borrow_mut().right = lright_most.clone();
+                while lright_most.as_ref().unwrap().borrow().right.is_some() {
+                    let rt = lright_most.as_ref().unwrap().borrow().right.clone();
+                    lright_most = rt;
+                }
+                lright_most.as_ref().unwrap().borrow_mut().right = right;
+            }
+            let right = root.as_ref().unwrap().borrow().right.clone();
+            root = right;
+        }
+    }
+    #[allow(dead_code)]
+    pub fn flatten_misunderstand_by_order(root: &mut Option<Rc<RefCell<TreeNode>>>) {
+        *root = Self::helper(root).0;
+    }
+    fn helper(root: &mut Option<Rc<RefCell<TreeNode>>>)
+              -> (Option<Rc<RefCell<TreeNode>>>, Option<Rc<RefCell<TreeNode>>>) {
+        if root.is_none() {  (None, None) }
+        else {
+            let (ll, lr) = Self::helper(&mut root.as_ref().unwrap().borrow_mut().left);
+            let (rl, rr) = Self::helper(&mut root.as_ref().unwrap().borrow_mut().right);
+            if lr.is_some() { lr.as_ref().unwrap().borrow_mut().right = root.clone(); }
+            root.as_ref().unwrap().borrow_mut().left = None;
+            root.as_ref().unwrap().borrow_mut().right = rl.clone();
+            (ll.or(root.clone()), rr.or(root.clone()))
+        }
+    }
+    #[allow(dead_code)]
+    pub fn flatten_loop1(mut root: &mut Option<Rc<RefCell<TreeNode>>>) {
         let mut root = root.clone();
 
         while let Some(ref mut rt) = root.clone() {

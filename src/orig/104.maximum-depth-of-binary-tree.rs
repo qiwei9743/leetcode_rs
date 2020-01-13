@@ -53,9 +53,12 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 use crate::TreeNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         match root {
             Some(root) => {

@@ -48,12 +48,14 @@
 //     }
 //   }
 // }
-use crate::{ListNode, linkedlist};
+use crate::ListNode;
 
-
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn remove_nth_from_end(mut head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
         let mut dummy = ListNode::new(-1);
         dummy.next = head;
@@ -80,9 +82,10 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use crate::linkedlist;
     #[test]
     fn test1() {
+
         assert_eq!(
             Solution::remove_nth_from_end(linkedlist![1,2,3,4,5], 2),
             linkedlist![1,2,3,5]);

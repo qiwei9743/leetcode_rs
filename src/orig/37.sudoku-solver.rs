@@ -40,8 +40,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
         let mut rows = vec![vec![false; 9]; 9];
         let mut cols = vec![vec![false; 9]; 9];
@@ -60,6 +63,7 @@ impl Solution {
         Solution::dfs(board, Solution::next_empty_pos(board, 0),
                       &mut rows, &mut cols, &mut boxes);
     }
+
 
     fn dfs(board: &mut Vec<Vec<char>>, pos: usize,
            rows: &mut Vec<Vec<bool>>,
@@ -92,6 +96,7 @@ impl Solution {
         false
     }
 
+    #[allow(dead_code)]
     fn next_empty_pos(board: &Vec<Vec<char>>, pos: usize) -> usize {
         for cur in pos..81 {
             let (x, y) = (cur/9, cur%9);
@@ -120,6 +125,6 @@ mod tests {
                              vec!['.','.','.','.','8','.','.','7','9']];
 
         Solution::solve_sudoku(&mut board);
-        print!("{:?}", board);
+        //print!("{:?}", board);
     }
 }

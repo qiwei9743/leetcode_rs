@@ -61,6 +61,8 @@ use std::cell::RefCell;
 use std::collections::VecDeque;
 
 use crate::TreeNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {

@@ -26,6 +26,8 @@
  * Follow up:
  * Could you do it without any loop/recursion in O(1) runtime?
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
@@ -34,7 +36,7 @@ impl Solution {
             num = num.to_string()
                 .bytes()
                 .rev()
-                .fold(0, |acc, x| acc + (x - b'0') as i32);
+                .fold(0, |acc, x| acc + i32::from(x - b'0'));
         }
         num
     }

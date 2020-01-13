@@ -40,6 +40,8 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
@@ -53,7 +55,7 @@ impl Solution {
             return f2;
         }
         let mut fx = 0;
-        for i in 3..=n {
+        for _ in 3..=n {
             fx = f1 + f2;
             f1 = f2;
             f2 = fx;

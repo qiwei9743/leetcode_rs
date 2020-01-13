@@ -79,8 +79,11 @@
  * 
  * 
  */
-//struct Solution;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_valid_sudoku(board: Vec<Vec<char>>) -> bool {
         let mut sub = vec![vec![vec![false;9]; 3]; 3];
         let (mut row, mut col) = (vec![vec![false; 9]; 9], vec![vec![false; 9]; 9]);
@@ -90,6 +93,7 @@ impl Solution {
                 .filter(|(i, n)| n.is_digit(10))
                 .map(|(i, n)| (i, n.to_digit(10).unwrap() as usize - 1)) {
                     let (subi, subj) = (i/3, j/3);
+                    if sub[subi][subj][n] || row[i][n] || col[j][n] { return false; }
                     sub[subi][subj][n] = if sub[subi][subj][n] { return false; } else { true };
                     row[i][n] = if row[i][n] { return false; } else { true };
                     col[j][n] = if col[j][n] { return false; } else { true };
@@ -98,6 +102,7 @@ impl Solution {
         true
     }
 
+    #[allow(dead_code)]
     pub fn is_valid_sudoku2(board: Vec<Vec<char>>) -> bool {
         use std::collections::{HashMap, HashSet};
         let mut row = HashMap::new();

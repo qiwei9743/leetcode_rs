@@ -59,8 +59,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_valid(s: String) -> bool {
         use std::collections::HashMap;
         let mut stack = vec!['#'];

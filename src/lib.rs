@@ -1,5 +1,5 @@
 
-#![feature(proc_macro_hygiene)]
+//#![feature(proc_macro_hygiene)]
 pub use leetcode_prelude::{linkedlist, btree, leetcode_test, vec_string, ListNode, TreeNode, assert_eq_sorted};
 
 pub mod string_to_integer_atoi;
@@ -74,3 +74,35 @@ pub mod reverse_string;
 pub mod reverse_string_ii;
 pub mod rotate_list;
 pub mod non_decreasing_array;
+pub mod two_sum;
+pub mod zigzag_conversion;
+pub mod valid_parentheses;
+pub mod swap_nodes_in_pairs;
+pub mod search_insert_position;
+pub mod valid_sudoku;
+pub mod sudoku_solver;
+pub mod sqrtx;
+pub mod wildcard_matching;
+pub mod subsets;
+pub mod same_tree;
+pub mod valid_palindrome;
+pub mod single_number;
+pub mod single_number_ii;
+pub mod two_sum_ii_input_array_is_sorted;
+pub mod ugly_number;
+pub mod ugly_number_ii;
+pub mod super_ugly_number;
+pub mod valid_palindrome_ii;
+pub mod to_lower_case;
+pub mod self_dividing_numbers;
+pub mod unique_morse_code_words;
+pub mod sort_array_by_parity;
+pub mod sort_array_by_parity_ii;
+pub mod water_and_jug_problem;
+pub mod unique_email_addresses;
+pub mod find_common_characters;
+pub mod maximum_profit_in_job_scheduling;
+pub mod sort_array_by_parity;
+pub mod sort_array_by_parity_ii;
+pub mod unique_email_addresses;
+pub mod ugly_number_iii;

@@ -44,6 +44,8 @@
 //   }
 // }
 use crate::ListNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {

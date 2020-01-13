@@ -60,9 +60,12 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
         if nums.len() < 3 {
             return nums.len() as i32;
@@ -77,9 +80,9 @@ impl Solution {
         nums.truncate(i);
         i as i32
     }
-
+    #[allow(dead_code)]
     pub fn remove_duplicates2(nums: &mut Vec<i32>) -> i32 {
-        if nums.len() == 0 {
+        if nums.is_empty() {
             return 0;
         }
         let mut cnt = 1;

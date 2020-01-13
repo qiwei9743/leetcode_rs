@@ -57,9 +57,12 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn eval_rpn(tokens: Vec<String>) -> i32 {
         let opset = vec!["+", "-", "*", "/"].into_iter().collect::<std::collections::HashSet<_>>();
         let mut stack = vec![];

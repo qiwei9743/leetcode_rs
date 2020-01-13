@@ -38,9 +38,12 @@
 //   }
 // }
 use crate::ListNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn remove_elements(head: Option<Box<ListNode>>, val: i32) -> Option<Box<ListNode>> {
         let mut dummy_node = ListNode::new(-1);
         dummy_node.next = head;

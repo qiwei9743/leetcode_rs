@@ -48,13 +48,16 @@
  * Output: 701
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn title_to_number(s: String) -> i32 {
         let mut res = 0i32;
         for chb in s.bytes() {
-            res = res*26 + (chb - b'A') as i32 + 1;
+            res = res*26 + i32::from(chb - b'A') + 1;
         }
         res
     }

@@ -32,16 +32,20 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
         let mut hash: std::collections::HashMap<String, Vec<_>> = std::collections::HashMap::new();
         for st in strs {
             let mut ochars = st.chars().collect::<Vec<_>>();
             ochars.sort();
             let key = ochars.into_iter().collect::<String>();
-            hash.entry(key).or_insert(vec![]).push(st);
+            //hash.entry(key).or_insert(vec![]).push(st);
+            hash.entry(key).or_insert_with(|| vec![]).push(st);
         }
         hash.into_iter().map(|(_, value)| value).collect()
     }

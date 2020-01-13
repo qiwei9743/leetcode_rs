@@ -77,8 +77,11 @@
  * Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  q* 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn int_to_roman(mut num: i32) -> String {
         let divec = vec![(1, "I"), (4, "IV"), (5, "V"), (9, "IX"),
                          (10, "X"), (40, "XL"), (50, "L"), (90, "XC"),
@@ -86,7 +89,7 @@ impl Solution {
                          (1000, "M")];
         let mut res = String::new();
         while num > 0 {
-            let (score, symbol) = divec.iter().rev().find(|(score, _)| score <= &num).unwrap();
+            let (score, symbol) = divec.iter().rev().find(|(score, _)| *score <= num).unwrap();
             res.push_str(symbol);
             num -= score;
         }

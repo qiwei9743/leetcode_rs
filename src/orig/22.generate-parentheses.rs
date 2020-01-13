@@ -29,11 +29,14 @@
  * ]
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn generate_parenthesis(n: i32) -> Vec<String> {
         let mut res = vec![];
-        let cur = String::new();
+        //let cur = String::new();
 
         Self::generate(0, 0, n, &mut String::new(), &mut res);
         res

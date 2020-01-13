@@ -34,7 +34,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn single_number(nums: Vec<i32>) -> i32 {
         nums.iter().fold(0, |p, c| p ^ c)
     }

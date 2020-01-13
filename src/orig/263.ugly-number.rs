@@ -45,7 +45,11 @@
  * Input is within the 32-bit signed integer range: [−2^31,  2^31 − 1].
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_ugly(mut num: i32) -> bool {
         if num < 1 { return false; }
         loop {

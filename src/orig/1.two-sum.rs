@@ -30,9 +30,12 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         let mut nums: Vec<_> = nums.iter().enumerate().map(|(i, d)| (i, d)).collect();
         nums.sort_by_key(|k| k.1);

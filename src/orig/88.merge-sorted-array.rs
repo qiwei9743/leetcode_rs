@@ -34,9 +34,12 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
         let mut m = m as usize;
         let mut n = n as usize;
@@ -59,8 +62,6 @@ impl Solution {
                 }
             };
         }
-        for i in 0..n {
-            nums1[i] = nums2[i];
-        }
+        nums1[..n].clone_from_slice(&nums2[..n]);
     }
 }

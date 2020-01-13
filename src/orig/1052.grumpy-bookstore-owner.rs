@@ -66,11 +66,11 @@ impl Solution {
             if grumpy[i-x+1] == 1 {
                 max_straight_sum -= customers[i-x+1];
             }
-            println!("{} {} {}", i, range_sum, max_straight_sum);
+            //println!("{} {} {}", i, range_sum, max_straight_sum);
             (range_sum, i)
         }).max().unwrap_or((0, 0));
 
-        println!("{} {}", max, j);
+        //println!("{} {}", max, j);
 
         (0..customers.len()).map(
             |i| {

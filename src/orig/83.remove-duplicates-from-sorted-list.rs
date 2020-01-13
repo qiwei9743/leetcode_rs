@@ -45,10 +45,13 @@
 //     }
 //   }
 // }
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 use crate::ListNode;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut dummy = ListNode::new(std::i32::MAX);
         dummy.next = head;

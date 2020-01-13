@@ -73,10 +73,11 @@ struct Node<T: std::fmt::Debug> {
 
 impl<T: std::fmt::Debug> Drop for Node<T> {
     fn drop(&mut self) {
-        println!("droping {:?}", self.elem);
+        //println!("droping {:?}", self.elem);
     }
 }
 
+#[derive(Default)]
 pub struct MyLinkedList {
     len: Cell<usize>,
     head: Link<i32>,
@@ -84,7 +85,7 @@ pub struct MyLinkedList {
 }
 impl MyLinkedList {
     pub fn new() -> Self {
-        Self {len: Cell::new(0), head: None, tail: None}
+        Default::default()
     }
 
     pub fn get(&self, index: i32) -> i32 {
@@ -144,16 +145,16 @@ impl MyLinkedList {
         let next = &deleted.as_ref().borrow_mut().next;
 
         if let Some(rc_prev) = &prev {
-            rc_prev.as_ref().borrow_mut().next = next.as_ref().map(|x| x.clone());
+            rc_prev.as_ref().borrow_mut().next = next.as_ref().cloned();
         } else {
-            self.head = next.as_ref().map(|x| x.clone());
+            self.head = next.as_ref().cloned();
         }
 
         if let Some(rc_next) = next {
             rc_next.as_ref().borrow_mut().prev = prev.as_ref().map(
-                |x| Rc::downgrade(x)).unwrap_or(Weak::new());
+                |x| Rc::downgrade(x)).unwrap_or_default();
         } else {
-            self.tail = prev.as_ref().map(|x| x.clone());
+            self.tail = prev.as_ref().cloned();
         }
 
         self.len.set(self.len.get() - 1);

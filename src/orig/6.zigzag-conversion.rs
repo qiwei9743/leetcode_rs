@@ -49,8 +49,11 @@
  * P     I
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn convert(s: String, num_rows: i32) -> String {
         if num_rows == 1 || s.len() <= num_rows as usize {
             return s
@@ -67,6 +70,7 @@ impl Solution {
         }
         res.into_iter().flatten().collect()
     }
+    #[allow(dead_code)]
     pub fn convert2(s: String, num_rows: i32) -> String {
         let s: Vec<_> = s.chars().collect();
         let mut pos = vec![vec![]; num_rows as usize];

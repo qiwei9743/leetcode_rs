@@ -57,11 +57,13 @@ struct MyStack {
 impl MyStack {
 
     /** Initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         Self{q: std::collections::VecDeque::new()}
     }
     
     /** Push element x onto stack. */
+    #[allow(dead_code)]
     fn push(&mut self, x: i32) {
         self.q.push_back(x);
         for _ in 0..self.q.len()-1 {
@@ -71,16 +73,19 @@ impl MyStack {
     }
     
     /** Removes the element on top of the stack and returns that element. */
+    #[allow(dead_code)]
     fn pop(&mut self) -> i32 {
         self.q.pop_front().unwrap()
     }
     
     /** Get the top element. */
+    #[allow(dead_code)]
     fn top(&self) -> i32 {
-        self.q.front().unwrap().clone()
+        *self.q.front().unwrap()
     }
     
     /** Returns whether the stack is empty. */
+    #[allow(dead_code)]
     fn empty(&self) -> bool {
         self.q.is_empty()
     }

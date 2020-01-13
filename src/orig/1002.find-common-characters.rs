@@ -51,8 +51,12 @@
  */
 use std::collections::HashMap;
 
-//struct Solution;
+#[cfg(feature = "local")]
+struct Solution;
+
+
 impl Solution {
+    #[allow(dead_code)]
     pub fn common_chars(a: Vec<String>) -> Vec<String> {
         let cnts_vect: Vec<HashMap<char, u32>> = a.iter().map(|x|{
             let mut hm = HashMap::new();

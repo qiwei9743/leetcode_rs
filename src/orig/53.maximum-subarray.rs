@@ -28,11 +28,14 @@
  * the divide and conquer approach, which is more subtle.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {
-        if nums.len() == 0 {
+        if nums.is_empty() {
             return 0;
         }
         let mut prev = nums[0];

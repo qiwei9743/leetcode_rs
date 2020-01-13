@@ -29,14 +29,18 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn permute(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
         if nums.len() < 2 {
             return vec![nums];
         }
-        let count = (1..=nums.len()).fold(1,|x, y| x*y);
+
+        let count:usize = (1..=nums.len()).product();
 
         let mut res = vec![nums.clone()];
         for _ in 0..count-1 {

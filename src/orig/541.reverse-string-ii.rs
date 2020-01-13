@@ -32,9 +32,12 @@
  * ⁠Length of the given string and k will in the range [1, 10000]
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn reverse_str(s: String, k: i32) -> String {
         let k = k as usize;
         let mut s: Vec<_> = s.chars().collect();

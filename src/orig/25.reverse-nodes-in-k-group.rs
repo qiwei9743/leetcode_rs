@@ -54,19 +54,22 @@
 //     }
 //   }
 // }
-use crate::{ListNode, linkedlist};
+use crate::{ListNode};
 
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
     fn find_last<'a>(mut x: &'a mut Option<Box<ListNode>>, mut cnt: Option<&mut i32>) -> &'a mut Option<Box<ListNode>> {
         while x.as_ref().unwrap().next.is_some() {
             x = &mut x.as_mut().unwrap().next;
-            cnt.as_mut().map(|x| **x += 1);
+            //cnt.as_mut().map(|x| **x += 1);
+            if let Some(x) = cnt.as_mut() { **x += 1; }
         }
         x
     }
-
+    #[allow(dead_code)]
     pub fn reverse_k_group(mut head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
         if head.is_none() {
             return head;
@@ -104,6 +107,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_reverse_k_group() {
+        use crate::linkedlist;
         assert_eq!(
             Solution::reverse_k_group(linkedlist![1,2,3,4], 2),
             linkedlist![2,1,4,3]);

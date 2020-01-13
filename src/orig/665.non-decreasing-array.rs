@@ -41,19 +41,22 @@
  * The n belongs to [1, 10,000].
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn check_possibility(mut nums: Vec<i32>) -> bool {
         let x = (0..nums.len()-1).position(|x| nums[x] > nums[x+1]);
         if x.is_none() { return true; }
         let x = x.unwrap();
-        if (x+1..nums.len()-1).position(|i| nums[i] > nums[i+1]).is_some() { return false; }
+        if (x+1..nums.len()-1).any(|i| nums[i] > nums[i+1]) { return false; }
         let new_x = if x == 0 { std::i32::MIN } else { *nums.get(x-1).unwrap() };
         if new_x <= nums[x+1] { true }
         else { nums[x] <= *nums.get(x+2).unwrap_or(&std::i32::MAX) }
     }
-
+    #[allow(dead_code)]
     pub fn check_possibility2(mut nums: Vec<i32>) -> bool {
         if nums.len() < 2 {
             return true;

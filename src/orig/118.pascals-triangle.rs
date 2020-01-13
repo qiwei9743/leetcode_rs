@@ -33,9 +33,12 @@
  * 
  * 
  */
+#[cfg(feature = "local")]
+#[allow(dead_code)]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn generate(num_rows: i32) -> Vec<Vec<i32>> {
         if num_rows == 0 {
             return vec![];
@@ -44,7 +47,7 @@ impl Solution {
         for row_n in 1..num_rows {
             let prev = &res[res.len()-1];
             let mut cur = vec![];
-            for idx in 0..row_n as usize +1 {
+            for idx in 0..=row_n as usize {
                 cur.push(
                     *prev.get(idx).unwrap_or(&0) +
                         *prev.get(idx-1).unwrap_or(&0));

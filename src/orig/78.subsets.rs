@@ -33,9 +33,12 @@ i * @lc app=leetcode id=78 lang=rust
  * ]
  * 
  */
-//struct Solution;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut res = vec![];
         Self::dfs(&nums[..], 0, &mut vec![], &mut res);
@@ -51,11 +54,13 @@ impl Solution {
         })
     }
 
+    #[allow(dead_code)]
     pub fn subsets_i(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut res = vec![vec![]];
         (1..=nums.len()).for_each(|i| Self::dfs_i(&nums[..], 0, i, &mut vec![], &mut res));
         res
     }
+    #[allow(dead_code)]
     pub fn dfs_i(nums: &[i32], idx: usize, cnt: usize,
                cur: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
         if idx == cnt {
@@ -68,7 +73,7 @@ impl Solution {
             cur.pop();
         })
     }
-
+    #[allow(dead_code)]
     pub fn subsets_hash_sort(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut res = std::collections::HashSet::new();
         res.insert(vec![]);
@@ -78,6 +83,7 @@ impl Solution {
         }
         res.into_iter().collect()
     }
+    #[allow(dead_code)]
     pub fn dfs_hash_sort(nums: &[i32], idx: usize, cnt: usize,
                cur: &mut Vec<i32>, res: &mut std::collections::HashSet<Vec<i32>>,
                access: &mut Vec<bool>) {
@@ -106,6 +112,6 @@ mod tests {
 
     #[test]
     fn test_subsets() {
-        println!("subsets={:?}", Solution::subsets(vec![1,2,3]));
+        //println!("subsets={:?}", Solution::subsets(vec![1,2,3]));
     }
 }

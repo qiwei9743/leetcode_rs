@@ -29,14 +29,17 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn length_of_last_word(s: String) -> i32 {
         s.chars().rev()
             .skip_while(|c| c.is_whitespace())
             .enumerate()
-            .find(|(idx, c)| c.is_whitespace())
+            .find(|(_, c)| c.is_whitespace())
             .map_or_else(
                 || s.chars().filter(|c| c.is_alphabetic()).count(),
                 |(idx, _)| idx ) as i32

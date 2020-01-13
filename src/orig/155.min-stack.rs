@@ -52,29 +52,30 @@ struct MinStack {
 impl MinStack {
 
     /** initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         MinStack{ min_arr: Vec::new(), arr: Vec::new() }
     }
-    
+    #[allow(dead_code)]
     fn push(&mut self, x: i32) {
-        let last = self.min_arr.last().unwrap_or(&std::i32::MIN).clone();
+        let last = *self.min_arr.last().unwrap_or(&std::i32::MIN);
         if x < last {
             self.min_arr.push(self.arr.len() as i32);
         }
         self.arr.push(x);
     }
-    
+    #[allow(dead_code)]
     fn pop(&mut self) {
         self.arr.pop();
-        if self.arr.len() as i32 == self.min_arr.last().unwrap_or(&-1).clone() {
+        if self.arr.len() as i32 == *self.min_arr.last().unwrap_or(&-1) {
             self.min_arr.pop();
         }
     }
-    
+    #[allow(dead_code)]
     fn top(&self) -> i32 {
-        self.arr.last().unwrap_or(&-1).clone()
+        *self.arr.last().unwrap_or(&-1)
     }
-    
+    #[allow(dead_code)]
     fn get_min(&self) -> i32 {
         self.min_arr.last().map_or_else(|| -1, |&x|{
             self.arr[x as usize]

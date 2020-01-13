@@ -42,10 +42,13 @@
 //   }
 // }
 
-// struct Solution;
-// use crate::ListNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
+use crate::ListNode;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn swap_pairs(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let (mut i, n) = (0, 2);
         let mut dummy = Some(Box::new(ListNode::new(-1)));

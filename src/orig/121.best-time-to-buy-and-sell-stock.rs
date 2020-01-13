@@ -39,11 +39,13 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn max_profit(prices: Vec<i32>) -> i32 {
         let mut min_until_current = std::i32::MAX;
-        let mut res = 0;
         prices.iter().map(|x| {
             if min_until_current < *x {
                 x - min_until_current

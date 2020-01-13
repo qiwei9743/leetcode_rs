@@ -44,9 +44,12 @@
  * Coud you solve it without converting the integer to a string?
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_palindrome(x: i32) -> bool {
         if x < 0 {
             return false

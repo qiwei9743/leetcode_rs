@@ -42,8 +42,11 @@
  * You may assume both s and t have the same length.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_isomorphic(s: String, t: String) -> bool {
         if s.len() != t.len() {
             return false;

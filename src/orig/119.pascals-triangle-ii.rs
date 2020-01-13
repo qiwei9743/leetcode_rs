@@ -32,17 +32,19 @@
  * Could you optimize your algorithm to use only O(k) extra space?
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn get_row(row_index: i32) -> Vec<i32> {
         let mut prev = vec![1];
         if row_index == 0 {
             return prev;
         }
         for row_n in  1..=row_index {
-            let cur = (0..row_n as usize + 1)
-                .into_iter()
+            let cur = (0..=row_n as usize)
                 .map(|x| {
                     *prev.get(x).unwrap_or(&0) + *prev.get(x-1).unwrap_or(&0)
                 }).collect::<Vec<_>>();

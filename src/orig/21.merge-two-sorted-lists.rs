@@ -38,10 +38,13 @@
 //   }
 // }
 
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 use crate::ListNode;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn merge_two_lists(mut l1: Option<Box<ListNode>>, mut l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 //        let mut head = Some(Box::new(ListNode::new(-1)));
 //        let mut tail = &mut head;

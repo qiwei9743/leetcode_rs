@@ -35,9 +35,12 @@
  * Output: false
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_power_of_two(mut n: i32) -> bool {
         if n < 1 {
             return false
@@ -51,6 +54,5 @@ impl Solution {
             }
             n /= 2;
         }
-        true
     }
 }

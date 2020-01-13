@@ -31,18 +31,21 @@
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn find_kth_largest(mut nums: Vec<i32>, k: i32) -> i32 {
-        let K = nums.len() - k as usize;
+        let k = nums.len() - k as usize;
         let mut low = 0;
         let mut high = nums.len() - 1;
         loop {
             let t = Self::partition(&mut nums[..], low, high);
-            if t < K {
+            if t < k {
                 low = t + 1;
-            } else if t > K {
+            } else if t > k {
                 high = t - 1;
             } else {
                 return nums[t];

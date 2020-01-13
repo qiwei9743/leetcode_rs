@@ -31,24 +31,27 @@
  * of an integer.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn largest_number(mut nums: Vec<i32>) -> String {
         if nums.iter().all(|x| x == &0) {
             return "0".into();
         }
 
         nums.sort_by(|x, y| {
-            let a = Self::concat_number(x, y);
-            let b = Self::concat_number(y, x);
+            let a = Self::concat_number(*x, *y);
+            let b = Self::concat_number(*y, *x);
             a.cmp(&b)
         });
 
         nums.into_iter().rev().map(|x| x.to_string() ).collect()
     }
 
-    fn concat_number(a: &i32, b: &i32) -> u64 {
+    fn concat_number(a: i32, b: i32) -> u64 {
         let mut c = a.to_string();
         c.push_str(&b.to_string());
         c.parse().unwrap()

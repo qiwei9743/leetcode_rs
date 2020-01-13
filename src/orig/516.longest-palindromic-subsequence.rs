@@ -40,15 +40,19 @@
  * One possible longest palindromic subsequence is "bb".
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn longest_palindrome_subseq(s: String) -> i32 {
         let mut dp = vec![vec![0; s.len()]; s.len()];
         let sc1 = s.chars().collect::<Vec<_>>();
         let sc2 = s.chars().rev().collect::<Vec<_>>();
         for i in 0..sc1.len() {
-            for j in 0..sc1.len() {
-                dp[i][j] = if sc1[i] == sc2[j] {
+            //for j in 0..sc1.len() {
+            for (j, item) in sc2.iter().enumerate() {
+                dp[i][j] = if sc1[i] == *item {
                     if i == 0 || j == 0 {
                         1
                     } else {
@@ -61,6 +65,6 @@ impl Solution {
             }
         }
         //dp.last().unwrap_or(0).last().unwrap_or(0)
-        dp.last().and_then(|x| x.last()).unwrap_or(&0).clone()
+        *dp.last().and_then(|x| x.last()).unwrap_or(&0)
     }
 }

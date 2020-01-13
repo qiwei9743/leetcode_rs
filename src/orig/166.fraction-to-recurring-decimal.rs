@@ -38,17 +38,19 @@
  * 
  * 
  */
-
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
         use std::collections::HashMap;
         let mut did_reminders = HashMap::new();
-        let numerator = numerator as i64;
-        let denominator = denominator as i64;
+        let numerator = i64::from(numerator);
+        let denominator = i64::from(denominator);
         
-        let mut n = (numerator.abs() / denominator.abs()) as i64;
+        let mut n = numerator.abs() / denominator.abs();
         let mut res = if numerator * denominator < 0 {
             vec![String::from("-"), n.to_string(), String::from(".")]
         } else {
@@ -65,7 +67,7 @@ impl Solution {
 
             reminder *= 10;
             n = reminder / denominator;
-            reminder = reminder % denominator;
+            reminder %= denominator;
             res.push(n.to_string());
         }
         if reminder == 0 {

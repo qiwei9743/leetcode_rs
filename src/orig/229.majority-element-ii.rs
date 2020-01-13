@@ -29,9 +29,12 @@
  * Output: [1,2]
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn majority_element(nums: Vec<i32>) -> Vec<i32> {
         let (mut y, mut z, mut cy, mut cz) = (0, 0, 0, 1);
         for x in nums.iter() {

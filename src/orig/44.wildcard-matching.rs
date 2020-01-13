@@ -81,9 +81,12 @@
  * 
  * 
  */
-//struct Solution;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 //https://leetcode.com/problems/wildcard-matching/discuss/438843/C%2B%2B-DP-in-one-row-(9MB-%40-24ms)
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_match<S: AsRef<str>>(s: S, p: S) -> bool {
         let (s, p) = (s.as_ref().as_bytes(), p.as_ref().as_bytes());
         if s.is_empty() { return p.is_empty() || p.iter().all(|x| *x == b'*'); }
@@ -108,7 +111,7 @@ impl Solution {
         *dp.last().unwrap()
     }
 
-
+    #[allow(dead_code)]
     pub fn is_match_dp2<S: AsRef<str>>(s: S, p: S) -> bool {
         let (s, p) = (s.as_ref().as_bytes(), p.as_ref().as_bytes());
         if s.is_empty() { return p.is_empty() || p.iter().all(|x| *x == b'*'); }
@@ -131,6 +134,7 @@ impl Solution {
         *dp.first().unwrap().last().unwrap()
     }
 
+    #[allow(dead_code)]
     pub fn is_match_dpn<S: AsRef<str>>(s: S, p: S) -> bool {
         let (s, p) = (s.as_ref().as_bytes(), p.as_ref().as_bytes());
         if s.is_empty() { return p.is_empty() || p.iter().all(|x| *x == b'*'); }
@@ -151,6 +155,7 @@ impl Solution {
         *dp.last().unwrap().last().unwrap()
     }
 
+    #[allow(dead_code)]
     pub fn is_match_tle<S: AsRef<str>>(s: S, p: S) -> bool {
         let s = s.as_ref().as_bytes();
         let p = p.as_ref().as_bytes();
@@ -175,6 +180,7 @@ impl Solution {
         si == s.len() && pi == p.len()
     }
 
+    #[allow(dead_code)]
     fn find_not_star(p: &[u8], from: usize) -> usize {
         for i in from..p.len() {
             if p[i] != b'*' {

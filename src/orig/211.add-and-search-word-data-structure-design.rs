@@ -83,7 +83,7 @@ impl WordDictionary {
 
     fn _search(&self, root: &Trie, word: &str) -> bool {
         if word.is_empty() {
-            return if root.end { true } else { false };
+            return root.end;
         }
         let mut root = root;
         for (i, cb) in word.bytes().enumerate() {

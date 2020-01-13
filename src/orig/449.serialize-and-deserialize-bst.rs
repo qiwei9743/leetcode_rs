@@ -4,9 +4,13 @@ use std::collections::VecDeque;
 use std::rc::Rc;
 use std::cell::RefCell;
 
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
+
 impl Solution {
 
+    #[allow(dead_code)]
     pub fn serialize(root: Option<Rc<RefCell<TreeNode>>>) -> String {
         if root.is_none() {
             return "".to_string();
@@ -22,7 +26,7 @@ impl Solution {
                 for _ in 0..cnt {
                     let mut root = dq.pop_front().unwrap();
                     res.push(root.as_ref().map(
-                        |x| x.borrow().val.to_string()).unwrap_or(String::from("null")));
+                        |x| x.borrow().val.to_string()).unwrap_or_else(|| String::from("null")));
 
                     if let Some(node) = &mut root {
                         dq.push_back(node.borrow_mut().left.take());
@@ -38,8 +42,9 @@ impl Solution {
 
         res.join(",")
     }
+    #[allow(dead_code)]
     pub fn descrialize(data: String) -> Option<Rc<RefCell<TreeNode>>> {
-        let mut item_iter = data.split(",");
+        let mut item_iter = data.split(',');
         let root = if let Some(root_str) = item_iter.next() {
             Self::create_tree_node(root_str)
         } else {
@@ -68,9 +73,9 @@ impl Solution {
                 break
             }
         }
-
         root
     }
+    #[allow(dead_code)]
     fn create_tree_node(root_str: &str) -> Option<Rc<RefCell<TreeNode>>> {
         root_str.parse::<i32>().ok().map(
             |x| Rc::new(RefCell::new(TreeNode::new(x))))

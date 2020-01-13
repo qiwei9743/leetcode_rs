@@ -48,8 +48,11 @@
  * Output: "ZY"
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn convert_to_title(mut n: i32) -> String {
         let mut res = String::new();
         while n != 0 {
@@ -86,6 +89,6 @@ mod tests {
     #[test]
     fn test_array() {
         let arr = (0..26).map(|x| b'A' + x).collect::<Vec<_>>();
-        println!("{:?}", String::from_utf8(arr).unwrap());
+        //println!("{:?}", String::from_utf8(arr).unwrap());
     }
 }

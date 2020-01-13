@@ -57,16 +57,19 @@ struct MyQueue {
 impl MyQueue {
 
     /** Initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         Self{ s1: Vec::new(), s2: Vec::new() }
     }
     
     /** Push element x to the back of queue. */
+    #[allow(dead_code)]
     fn push(&mut self, x: i32) {
         self.s1.push(x);
     }
     
     /** Removes the element from in front of queue and returns that element. */
+    #[allow(dead_code)]
     fn pop(&mut self) -> i32 {
         self.s2.pop().unwrap_or_else(|| {
             while let Some(x) = self.s1.pop() {
@@ -77,16 +80,18 @@ impl MyQueue {
     }
     
     /** Get the front element. */
+    #[allow(dead_code)]
     fn peek(&mut self) -> i32 {
         if self.s2.is_empty() {
             while let Some(x) = self.s1.pop() {
                 self.s2.push(x);
             }
         }
-        self.s2.last().unwrap().clone()
+        *self.s2.last().unwrap()
     }
     
     /** Returns whether the queue is empty. */
+    #[allow(dead_code)]
     fn empty(&self) -> bool {
         self.s1.is_empty() && self.s2.is_empty()
     }

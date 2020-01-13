@@ -38,7 +38,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn valid_palindrome(s: String) -> bool {
         Self::helper(s.as_bytes(), 1)
     }

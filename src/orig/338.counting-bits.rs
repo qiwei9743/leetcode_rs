@@ -39,6 +39,8 @@
  * __builtin_popcount in c++ or in any other language.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {

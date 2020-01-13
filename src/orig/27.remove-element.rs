@@ -63,8 +63,11 @@
  * print(nums[i]);
  * }
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
         let mut j = 0;
         for i in 0..nums.len() {

@@ -59,6 +59,7 @@ struct MyHashSet {
 impl MyHashSet {
 
     /** Initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         let cnt = 1024;
         let mut arr = Vec::with_capacity(cnt);
@@ -67,27 +68,30 @@ impl MyHashSet {
         }
         Self { arr }
     }
-    fn calc_index(arr_size: usize, key: &i32) -> usize {
-        *key as usize & (arr_size - 1)
+    #[allow(dead_code)]
+    fn calc_index(arr_size: usize, key: i32) -> usize {
+        key as usize & (arr_size - 1)
     }
+    #[allow(dead_code)]
     fn add(&mut self, key: i32) {
-        let index = Self::calc_index(self.arr.len(), &key);
+        let index = Self::calc_index(self.arr.len(), key);
         let sl = &mut self.arr[index];
         sl.remove(|x| *x == key);
         sl.append(key);
     }
-    
+    #[allow(dead_code)]
     fn remove(&mut self, key: i32) {
-        let index = Self::calc_index(self.arr.len(), &key);
+        let index = Self::calc_index(self.arr.len(), key);
         let sl = &mut self.arr[index];
         sl.remove(|x| *x == key );
     }
     
     /** Returns true if this set contains the specified element */
+    #[allow(dead_code)]
     fn contains(&self, key: i32) -> bool {
-        let index = Self::calc_index(self.arr.len(), &key);
+        let index = Self::calc_index(self.arr.len(), key);
         let sl = &self.arr[index];
-        sl.iter().find(|x| **x == key).is_some()
+        sl.iter().any(|x| *x == key)
     }
 }
 
@@ -102,32 +106,37 @@ struct Slist<T> {
     head: Link<T>
 }
 
-impl<i32> Default for Slist<i32> {
+impl<T> Default for Slist<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
 impl<T> Slist<T> {
+    #[allow(dead_code)]
     fn new() -> Self {
         Self { head: None }
     }
+    #[allow(dead_code)]
     fn peek(&self) -> Option<&T> {
         if let Some(node) = self.head.as_ref() {
             return Some(&node.value)
         }
         None
     }
+    #[allow(dead_code)]
     fn append(&mut self, elem: T) {
         let new_node = Box::new(
             Node{ value: elem, next: self.head.take() });
         self.head = Some(new_node);
     }
+    #[allow(dead_code)]
     fn pop(&mut self) {
         if let Some(node) = self.head.take() {
             self.head = node.next;
         }
     }
+    #[allow(dead_code)]
     fn remove<F>(&mut self, f: F) where
         F: Fn(&T) -> bool {
 
@@ -145,6 +154,7 @@ impl<T> Slist<T> {
             }
         }
     }
+    #[allow(dead_code)]
     fn iter(&self) -> Iter<'_, T> {
         Iter { next: self.head.as_ref().map(|x| &**x)}
     }

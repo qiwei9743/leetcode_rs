@@ -33,8 +33,11 @@
  * Output: 99
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn single_number(nums: Vec<i32>) -> i32 {
         Self::_single(nums, 3, 1)
     }

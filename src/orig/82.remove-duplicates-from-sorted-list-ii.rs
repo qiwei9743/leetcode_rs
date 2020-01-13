@@ -47,10 +47,12 @@
 // }
 
 use crate::ListNode;
-use crate::linkedlist;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn delete_duplicates(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         if head.is_none() {
             return head;
@@ -84,6 +86,8 @@ mod tests {
 
     #[test]
     fn test_delete_duplicates() {
+        use crate::linkedlist;
+
         assert_eq!(Solution::delete_duplicates(linkedlist![1,1,1]),
                    linkedlist![]);
 

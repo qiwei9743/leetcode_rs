@@ -58,6 +58,8 @@ use std::rc::Rc;
 use std::cell::RefCell;
 
 use crate::TreeNode;
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {

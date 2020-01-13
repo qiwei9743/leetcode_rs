@@ -30,15 +30,18 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn longest_palindrome2(s: String) -> String {
         // perf not really good. cost 8 ms. below solution cost 0 ms.
         if s.len() < 2 {
             return s;
         }
-        let s = s.split("").filter(|x| x.len() > 0).collect::<Vec<_>>().join("#");
+        let s = s.split("").filter(|x| !x.is_empty()).collect::<Vec<_>>().join("#");
         // println!("{:?}", s);
         let s = s.as_bytes();
         let mut dp = vec![0; s.len()];
@@ -55,7 +58,7 @@ impl Solution {
                 std::cmp::min(dp[2*mid - i], right_most-i-1)
             };
 
-            while i >= ilen+1 && i + ilen + 1 < s.len() && s[i-ilen-1] == s[i+ilen+1] {
+            while i > ilen && i + ilen + 1 < s.len() && s[i-ilen-1] == s[i+ilen+1] {
                 ilen += 1;
             }
             if i + ilen > right_most {
@@ -69,10 +72,11 @@ impl Solution {
             dp[i] = ilen;
             i += 1;
         }
-        let s1 = s[start-len..=start+len].iter().map(|x| x.clone()).filter(|x| *x != b'#').collect();
+        // let s1 = s[start-len..=start+len].iter().map(|x| *x).filter(|x| *x != b'#').collect();
+        let s1 = s[start-len..=start+len].iter().copied().filter(|x| *x != b'#').collect();
         String::from_utf8(s1).unwrap()
     }
-
+    #[allow(dead_code)]
     pub fn longest_palindrome(s: String) -> String {
         //https://leetcode.com/problems/longest-palindromic-substring/discuss/381827/Java-2ms-time-used
         // cost 0 ms in rust.
@@ -97,7 +101,7 @@ impl Solution {
                 start = j;
             }
         }
-        s[start..start+max].into_iter().collect()
+        s[start..start+max].iter().collect()
     }
 }
 

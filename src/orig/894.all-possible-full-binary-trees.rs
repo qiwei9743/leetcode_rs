@@ -63,7 +63,8 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 use crate::TreeNode;
-
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
@@ -92,7 +93,7 @@ impl Solution {
 mod tests {
     #[test]
     fn test1() {
-        println!("hello");
+
     }
     #[test]
     fn test2() {

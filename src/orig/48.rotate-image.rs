@@ -60,18 +60,18 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
         matrix.reverse();
         for i in 1..matrix.len() {
             let (left, right) = matrix.split_at_mut(i);
-            for j in 0..i {
-                /*               let t = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = t; */
-                std::mem::swap(&mut left[j][i], &mut right[0][j]);
+            for (j, left_item) in left.iter_mut().enumerate().take(i) {
+                std::mem::swap(&mut left_item[i], &mut right[0][j]);
             }
         }
     }

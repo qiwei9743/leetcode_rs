@@ -63,10 +63,12 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 use crate::TreeNode;
-
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_symmetric(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
         if let Some(rc_root) = &root {
             Self::is_tree_equal(&rc_root.borrow().left,
@@ -80,7 +82,7 @@ impl Solution {
 
         match (root1, root2) {
             (Some(rc_root1), Some(rc_root2)) if rc_root1.borrow().val == rc_root2.borrow().val => {
-                return Self::is_tree_equal(
+                Self::is_tree_equal(
                     &rc_root1.borrow().left,
                     &rc_root2.borrow().right ) && Self::is_tree_equal(
                     &rc_root1.borrow().right, &rc_root2.borrow().left)

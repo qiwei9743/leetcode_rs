@@ -67,15 +67,17 @@ struct Trie {
 impl Trie {
 
     /** Initialize your data structure here. */
+    #[allow(dead_code)]
     fn new() -> Self {
         Self{ root: Default::default() }
     }
     
     /** Inserts a word into the trie. */
+    #[allow(dead_code)]
     fn insert(&mut self, word: String) {
         let mut root = &mut self.root;
         for widx in word.bytes().map(|c| (c - b'a') as usize) {
-            if let Some(next) = root.children[widx].as_mut() {
+            if let Some(_) = root.children[widx].as_mut() {
                 root = root.children[widx].as_mut().unwrap();
             } else {
                 let node = Box::new(Node::new());
@@ -87,6 +89,7 @@ impl Trie {
     }
     
     /** Returns if the word is in the trie. */
+    #[allow(dead_code)]
     fn search(&self, word: String) -> bool {
         let mut root = &self.root;
         for widx in word.bytes().map(|c| (c - b'a') as usize) {
@@ -96,11 +99,12 @@ impl Trie {
                 return false;
             }
         }
-        root.end == true
+        root.end
     }
     
     
     /** Returns if there is any word in the trie that starts with the given prefix. */
+    #[allow(dead_code)]
     fn starts_with(&self, prefix: String) -> bool {
         let mut root = &self.root;
         for widx in prefix.bytes().map(|c| (c - b'a') as usize) {
@@ -110,6 +114,6 @@ impl Trie {
                 return false;
             }
         }
-        return true
+        true
     }
 }

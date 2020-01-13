@@ -43,18 +43,21 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 use std::ops::BitAnd;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn my_pow(mut x: f64, mut n: i32) -> f64 {
         if n == 0 {
             return 1.0;
         }
         if n < 0 {
             x = 1.0/x;
-            n = -n;
+            n = if n == std::i32::MIN { x *= x; std::i32::MAX } else { -n };
         }
         let mut res = 1.0;
         let mut cur = x;
@@ -73,8 +76,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test1() {
-        assert_eq!(Solution::my_pow(5.0, 3), 125.0);
-        assert_eq!(Solution::my_pow(3.0, 3), 27.0);
+    fn test_my_pow() {
+        assert_eq!(
+            Solution::my_pow(2.0, -2147483648), 0.0);
+        assert_eq!(
+            Solution::my_pow(-2.0, -2147483648), 0.0);
     }
 }

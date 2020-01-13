@@ -35,7 +35,11 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn nth_super_ugly_number(n: i32, primes: Vec<i32>) -> i32 {
         let (mut indexes, mut res) = (vec![0; primes.len()], vec![1i32; n as usize]);
         for i in 1..n as usize {

@@ -77,8 +77,11 @@
  * Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn roman_to_int(s: String) -> i32 {
         let mut divec = vec![(1, "I"), (4, "IV"), (5, "V"), (9, "IX"),
                          (10, "X"), (40, "XL"), (50, "L"), (90, "XC"),
@@ -90,7 +93,7 @@ impl Solution {
         //for i in 0..s.len() {
         while i < s.len() {
             let (score, symbol) = divec.iter().rev()
-                .find(|(score, symbol)| symbol == &&s[i..std::cmp::min(i+symbol.len(), s.len())])
+                .find(|(_, symbol)| symbol == &&s[i..std::cmp::min(i+symbol.len(), s.len())])
                 .unwrap();
             res += score;
             i += symbol.len();

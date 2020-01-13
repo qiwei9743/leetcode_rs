@@ -31,9 +31,11 @@
  * Output: [-1,-1]
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
-    fn lower_bound(vec: &Vec<i32>, mut low: usize, mut high: usize, target: i32) -> i32 {
+    fn lower_bound(vec: &[i32], mut low: usize, mut high: usize, target: i32) -> i32 {
         while low < high {
             let mid = low + (high-low) / 2;
             if vec[mid] < target {
@@ -45,7 +47,7 @@ impl Solution {
         low as i32
     }
 
-    fn upper_bound(vec: &Vec<i32>, mut low: usize, mut high: usize, target: i32) -> i32 {
+    fn upper_bound(vec: &[i32], mut low: usize, mut high: usize, target: i32) -> i32 {
         while low < high {
             let mid = low +(high-low) / 2;
             if vec[mid] <= target {
@@ -56,8 +58,9 @@ impl Solution {
         }
         high as i32
     }
+    #[allow(dead_code)]
     pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
-        if nums.len() == 0 {
+        if nums.is_empty() {
             return vec![-1, -1];
         }
         let lower = Self::lower_bound(&nums, 0, nums.len() as usize, target);

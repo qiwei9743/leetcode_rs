@@ -31,7 +31,11 @@
  * n does not exceed 1690.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
+struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn nth_ugly_number(n: i32) -> i32 {
         let (mut nums, mut indexes, mut factors) = (vec![1; n as usize], vec![0, 0, 0], vec![2, 3, 5]);
         for i in 1..n as usize {
@@ -40,6 +44,7 @@ impl Solution {
         }
         *nums.last().unwrap()
     }
+    #[allow(dead_code)]
     pub fn nth_ugly_number_heap(n: i32) -> i32 {
         use std::cmp::Reverse;
         let mut hp:std::collections::BinaryHeap<Reverse<i32>> = vec![1].into_iter()
@@ -55,6 +60,7 @@ impl Solution {
         }
         hp.pop().unwrap().0
     }
+    #[allow(dead_code)]
     pub fn nth_ugly_number_naive(n: i32) -> i32 {
         let mut ugset = vec![1,2,3,4,5,6];
         if n <= ugset.len() as i32 { return ugset[n as usize -1]; }

@@ -58,8 +58,11 @@
  * print(nums[i]);
  * }
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
+    #[allow(dead_code)]
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
         let mut j = 0;
         for i in 1..nums.len() {
@@ -68,8 +71,9 @@ impl Solution {
                 nums[j] = nums[i];
             }
         }
-        if nums.len() > 0 { j as i32 +1 } else { 0 }
+        if !nums.is_empty() { j as i32 +1 } else { 0 }
     }
+    #[allow(dead_code)]
     pub fn remove_duplicates2(nums: &mut Vec<i32>) -> i32 {
         let mut slow = 1;
         let mut quick = 1;

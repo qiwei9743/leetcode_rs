@@ -36,9 +36,12 @@
  * Explanation: The array represents the integer 4321.
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn plus_one(digits: Vec<i32>) -> Vec<i32> {
         let mut cc = 1;
         let mut res:Vec<i32> = digits.into_iter()

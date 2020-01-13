@@ -36,9 +36,25 @@
  * 
  * 
  */
+#[allow(dead_code)]
+#[cfg(feature = "local")]
 struct Solution;
 impl Solution {
     pub fn my_sqrt(x: i32) -> i32 {
+        let (mut left, mut right) = (0u64, x as u64 + 1);
+        while left < right {
+            let mid = left + (right - left) / 2;
+            if mid * mid > x as u64 {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        left as i32 - 1
+    }
+
+    #[allow(dead_code)]
+    pub fn my_sqrt2(x: i32) -> i32 {
         let (mut low, mut high) = (0u64, x as u64 /2+1);
         while low < high {
             let mid = low + (high - low + 1) / 2;
