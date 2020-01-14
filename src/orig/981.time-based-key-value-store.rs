@@ -79,7 +79,7 @@
  * 
  */
 struct TimeMap {
-
+    tree: std::collections::BTreeMap<String, Vec<(i32, String)>>,
 }
 
 
@@ -88,18 +88,42 @@ struct TimeMap {
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl TimeMap {
-
     /** Initialize your data structure here. */
     fn new() -> Self {
-        
+        Self {
+            tree: std::collections::BTreeMap::new()
+        }
     }
-    
-    fn set(&self, key: String, value: String, timestamp: i32) {
-        
+
+    fn set(&mut self, key: String, value: String, timestamp: i32) {
+        self.tree.entry(key).or_insert_with(|| vec![]).push((timestamp,value))
     }
-    
+
     fn get(&self, key: String, timestamp: i32) -> String {
-        
+        self.tree.get(&key).map(|v| {
+            match v.binary_search_by_key(&timestamp, |x| x.0) {
+                Ok(p) => v[p].1.clone(),
+                Err(p) => if p > 0 { v[p-1].1.clone() } else { String::from("") }
+            }
+        }).unwrap_or(String::from(""))
+    }
+
+    fn get2(&self, key: String, timestamp: i32) -> String {
+        self.tree.get(&key).and_then(|v| {
+            Self::lessthan_or_equal(v, timestamp)
+        }).unwrap_or(String::from(""))
+    }
+    fn lessthan_or_equal(arr: &[(i32, String)], timestamp: i32) -> Option<String> {
+        let (mut low, mut high) = (0, arr.len());
+        while low < high {
+            let mid = low + (high - low) / 2;
+            if arr[mid].0 > timestamp {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        if low > 0 { Some(arr[low-1].1.clone()) } else { None }
     }
 }
 
