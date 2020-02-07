@@ -99,10 +99,85 @@ pub mod unique_morse_code_words;
 pub mod sort_array_by_parity;
 pub mod sort_array_by_parity_ii;
 pub mod water_and_jug_problem;
-pub mod unique_email_addresses;
 pub mod find_common_characters;
 pub mod maximum_profit_in_job_scheduling;
-pub mod sort_array_by_parity;
-pub mod sort_array_by_parity_ii;
 pub mod unique_email_addresses;
 pub mod ugly_number_iii;
+pub mod maximum_side_length_of_a_square_with_sum_less_than_or_equal_to_threshold;
+
+
+pub mod range_sum_query_mutable;
+
+// union-find
+pub mod redundant_connection;
+//pub mod redundant_connection_ii;
+pub mod accounts_merge;
+
+//tree traversal
+pub mod binary_tree_postorder_traversal;
+pub mod binary_tree_inorder_traversal;
+pub mod binary_tree_preorder_traversal;
+
+
+// seg tree && binary indexed tree
+pub mod count_of_smaller_numbers_after_self;
+// pub mod count_of_range_sum; *hard* // https://www.hrwhisper.me/leetcode-count-of-range-sum/
+
+
+// can not bug free
+// 146 721
+
+// dijkstra  // https://www.youtube.com/watch?v=9wV1VxlfBlI
+// 743
+// bellman-ford
+// 787  https://www.youtube.com/watch?v=PLY-lbcxEjg
+
+
+// unknown order
+pub mod validate_binary_search_tree;
+pub mod unique_binary_search_trees;
+// 95.unique-binary-search-trees-ii.py
+pub mod online_election;
+pub mod koko_eating_bananas;
+pub mod peak_index_in_a_mountain_array;
+pub mod search_in_rotated_sorted_array_ii;
+// 787.cheapest-flights-within-k-stops.py
+pub mod find_smallest_letter_greater_than_target;
+// 743.network-delay-time.py
+// 721.accounts-merge.py
+pub mod arranging_coins;
+pub mod median_of_two_sorted_arrays;
+pub mod intersection_of_two_arrays;
+pub mod intersection_of_two_arrays_ii;
+pub mod divide_two_integers;
+pub mod h_index_ii;
+pub mod count_complete_tree_nodes;
+// 222.count-complete-tree-nodes.py
+// 146.lru-cache.py
+pub mod find_the_smallest_divisor_given_a_threshold;
+// 1237.find-positive-integer-solution-for-a-given-equation.py
+pub mod shortest_path_in_binary_matrix;
+
+// union find
+// 959.regions-cut-by-slashes.py
+
+
+// tree
+pub mod construct_binary_tree_from_preorder_and_inorder_traversal;
+pub mod construct_binary_tree_from_inorder_and_postorder_traversal;
+pub mod construct_binary_tree_from_preorder_and_postorder_traversal;
+pub mod convert_sorted_array_to_binary_search_tree;
+pub mod balanced_binary_tree;
+pub mod minimum_depth_of_binary_tree;
+pub mod binary_search;
+
+// binary search
+pub mod kth_smallest_element_in_a_sorted_matrix;
+pub mod search_in_rotated_sorted_array;
+// 278.first-bad-version.py;
+
+// todo
+// pub mod minimum_ascii_delete_sum_for_two_strings;
+// pub mod redundant_connection_ii;
+// pub mod h_index;
+// pub mod lru-cache;

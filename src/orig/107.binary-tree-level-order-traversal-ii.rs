@@ -64,6 +64,31 @@ struct Solution;
 
 impl Solution {
     pub fn level_order_bottom(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+        if root.is_none() {
+            return vec![];
+        }
+        let mut q = std::collections::VecDeque::new();
+        q.push_back(root.unwrap());
+        let mut res = vec![];
+        while !q.is_empty() {
+            let size = q.len();
+            let mut cur = vec![];
+            for _ in 0..size {
+                let root = q.pop_front().unwrap();
+                if let Some(child) = root.borrow_mut().left.take() {
+                    q.push_back(child);
+                }
+                if let Some(child) = root.borrow_mut().right.take() {
+                    q.push_back(child);
+                }
+                cur.push(root.borrow().val);
+            }
+            res.push(cur);
+        }
+        res.into_iter().rev().collect()
+    }
+
+    pub fn level_order_bottom2(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
         let mut res = vec![];
         let mut dq = std::collections::VecDeque::new();
         if let Some(ref r) = root {

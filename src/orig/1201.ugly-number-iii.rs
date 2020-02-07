@@ -58,8 +58,18 @@
  * 
  * 
  */
+
+#[cfg(feature = "local")]
+struct Solution;
+
 impl Solution {
     pub fn nth_ugly_number(n: i32, a: i32, b: i32, c: i32) -> i32 {
-        
+        let (mut multiple, mut factors) = (vec![1; 3], vec![a, b, c]);
+        let mut num = 0;
+        for i in 0..n as usize {
+            num = multiple.iter().zip(factors.iter()).map(|(&mul, &factor)| mul*factor).min().unwrap();
+            multiple.iter_mut().zip(factors.iter()).for_each(|(mul, &factor)| if *mul * factor == num { *mul += 1; } );
+        }
+        num
     }
 }

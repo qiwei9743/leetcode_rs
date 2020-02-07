@@ -41,6 +41,21 @@
 struct Solution;
 impl Solution {
     pub fn my_sqrt(x: i32) -> i32 {
+        let mut l = 1;
+        let mut r = x;
+        while l <= r {
+            let m = l + (r - l) / 2;
+            if m > x / m {
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        l as i32 - 1
+    }
+
+
+    pub fn my_sqrt3(x: i32) -> i32 {
         let (mut left, mut right) = (0u64, x as u64 + 1);
         while left < right {
             let mid = left + (right - left) / 2;

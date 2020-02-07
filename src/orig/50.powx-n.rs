@@ -50,8 +50,31 @@ struct Solution;
 use std::ops::BitAnd;
 
 impl Solution {
-    #[allow(dead_code)]
     pub fn my_pow(mut x: f64, mut n: i32) -> f64 {
+        if n < 0 {
+            x = 1.0 / x;
+            if n == std::i32::MIN {
+                x *= x;
+                n = std::i32::MAX;
+            } else {
+                n = -n;
+            }
+        }
+        let sig = if x < 0.0 && n % 2 == 1 { x = -x; -1.0 } else { 1.0 };
+        let mut res = 1.0;
+        while n > 0 {
+            if n & 1 > 0 { res *= x; }
+            x *= x;
+            n >>= 1;
+        }
+        res * sig
+    }
+
+
+
+
+    #[allow(dead_code)]
+    pub fn my_pow2(mut x: f64, mut n: i32) -> f64 {
         if n == 0 {
             return 1.0;
         }
