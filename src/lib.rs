@@ -170,10 +170,14 @@ pub mod convert_sorted_array_to_binary_search_tree;
 pub mod balanced_binary_tree;
 pub mod minimum_depth_of_binary_tree;
 pub mod binary_search;
+// 116.populating-next-right-pointers-in-each-node.py failed
+// 117.populating-next-right-pointers-in-each-node-ii.py
+
 
 // binary search
 pub mod kth_smallest_element_in_a_sorted_matrix;
 pub mod search_in_rotated_sorted_array;
+pub mod capacity_to_ship_packages_within_d_days;
 // 278.first-bad-version.py;
 
 // todo
@@ -181,3 +185,11 @@ pub mod search_in_rotated_sorted_array;
 // pub mod redundant_connection_ii;
 // pub mod h_index;
 // pub mod lru-cache;
+// 528.random-pick-with-weight.rs
+
+
+// dfs
+// 133.clone-graph.py
+// 130.surrounded-regions.py
+// 129.sum-root-to-leaf-numbers.py
+pub mod convert_sorted_list_to_binary_search_tree;

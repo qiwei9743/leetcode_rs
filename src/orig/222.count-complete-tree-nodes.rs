@@ -59,7 +59,36 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
-    pub fn count_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    pub fn count_nodes(mut root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut cnt = 0;
+        while let Some(rc) = root {
+            let left_cnt = Self::count_left(rc.borrow().left.clone());
+            let right_cnt = Self::count_left(rc.borrow().right.clone());
+            cnt += 1 + match left_cnt.cmp(&right_cnt) {
+                std::cmp::Ordering::Equal => {
+                    root = rc.borrow_mut().right.take();
+                    2i32.pow(left_cnt) - 1
+                },
+                std::cmp::Ordering::Greater => {
+                    root = rc.borrow_mut().left.take();
+                    2i32.pow(right_cnt) - 1
+                },
+                _ => unreachable!("left_cnt < right_cnt"),
+            }
+        }
+        cnt
+    }
+    fn count_left(mut root: Option<Rc<RefCell<TreeNode>>>) -> u32 {
+        let mut cnt = 0;
+        while let Some(rc) = root {
+            cnt += 1;
+            root = rc.borrow_mut().left.clone();
+        }
+        cnt
+    }
+
+
+    pub fn count_nodes3(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         root.as_ref()
             .map(|r| Self::count_nodes(r.borrow().left.clone()) + Self::count_nodes(r.borrow().right.clone()) + 1)
             .unwrap_or(0)
